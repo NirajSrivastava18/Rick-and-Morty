@@ -1,4 +1,5 @@
 import CharacterFilter from './components/CharacterFilter';
+import Character from './components/Characters';
 import './App.css';
 
 function App() {
@@ -8,6 +9,9 @@ function App() {
         <h1>Rick and Morty Characters</h1>
         <CharacterFilter />
       </header>
+      <main>
+        <Character />
+      </main>
     </div>
   );
 }
