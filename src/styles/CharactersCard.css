@@ -68,3 +68,17 @@ img {
   color: red;
   margin: 20px;
 }
+
+/* For tablets */
+@media (max-width: 768px) {
+  .card-container {
+    width: 45%;
+  }
+}
+
+/* For mobile phones */
+@media (max-width: 480px) {
+  .card-container {
+    width: 60%;
+  }
+}
