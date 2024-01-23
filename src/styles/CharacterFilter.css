@@ -1,0 +1,17 @@
+.filter-container {
+  margin: 20px;
+}
+
+.filter-label {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.filter-input {
+  padding: 10px;
+  font-size: 1.2rem;
+  width: 50%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
