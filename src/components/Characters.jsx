@@ -92,7 +92,7 @@ const CharacterCard = ({ character }) => {
   );
 };
 
-const Characters = () => {
+const Characters = ({ filter }) => {
   const [characters, setCharacters] = useState([]);
 
   const fetchData = useCallback((attempt = 1) => {
@@ -106,9 +106,13 @@ const Characters = () => {
     fetchData();
   }, [fetchData]);
 
+  const filteredCharacters = characters.filter((character) =>
+    character.name.toLowerCase().includes(filter.toLowerCase())
+  );
+
   return (
     <div className="characters-grid">
-      {characters.map((character) => (
+      {filteredCharacters.map((character) => (
         <CharacterCard key={character.id} character={character} />
       ))}
     </div>
