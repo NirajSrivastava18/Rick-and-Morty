@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import CustomLoader from './CustomLoader';
 import '../styles/CharactersCard.css';
 
 const getStatusColor = (status) => {
@@ -94,14 +95,18 @@ const CharacterCard = ({ character }) => {
 
 const Characters = ({ filter }) => {
   const [characters, setCharacters] = useState([]);
+  const [isLoading, setIsLoading] = useState(false); // CustomLoader
   const [error, setError] = useState(null);
 
   const fetchData = useCallback((attempt = 1) => {
+    setIsLoading(true); // Start loading
     axios
       .get('https://rickandmortyapi.com/api/character/')
       .then((response) => {
         console.log('fetching data successful with attempt ', attempt);
         setCharacters(response.data.results);
+        setError(null);
+        setIsLoading(false); //stop loading
       })
       .catch((error) => {
         if (axios.isCancel(error)) {
@@ -109,10 +114,12 @@ const Characters = ({ filter }) => {
         } else if (error.code === 'ECONNABORTED') {
           console.log('server took too long to respond');
           setError('server took too long to respond');
+          setIsLoading(false);
         } else if (attempt <= 3) {
           console.log('retrying', attempt);
           setTimeout(() => fetchData(attempt + 1), 1000); // Retry after 1 second
         } else {
+          setIsLoading(false);
           console.error('Error fetching characters:', error);
           setError('Unable to fetch characters after 3 attempts.');
         }
@@ -122,6 +129,10 @@ const Characters = ({ filter }) => {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  if (isLoading) {
+    return <CustomLoader />; // Display the custom spinner when loading
+  }
 
   if (error) {
     return (

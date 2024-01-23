@@ -1,0 +1,82 @@
+.custom-spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* This will center the spinner vertically, you can adjust as needed */
+}
+
+.custom-spinner {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.custom-spinner div {
+  animation: custom-spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  transform-origin: 40px 40px;
+}
+
+.custom-spinner div:after {
+  content: ' ';
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 37px;
+  width: 6px;
+  height: 18px;
+  border-radius: 20%;
+  background: #333;
+}
+
+.custom-spinner div:nth-child(1) {
+  transform: rotate(0deg);
+  animation-delay: -0.036s;
+}
+
+.custom-spinner div:nth-child(1):after {
+  top: 63px;
+  left: 63px;
+}
+
+.custom-spinner div:nth-child(2) {
+  transform: rotate(30deg);
+  animation-delay: -0.072s;
+}
+
+.custom-spinner div:nth-child(2):after {
+  top: 63px;
+  left: 56px;
+}
+
+.custom-spinner div:nth-child(3) {
+  transform: rotate(60deg);
+  animation-delay: -0.108s;
+}
+
+.custom-spinner div:nth-child(3):after {
+  top: 63px;
+  left: 48px;
+}
+
+.custom-spinner div:nth-child(4) {
+  transform: rotate(90deg);
+  animation-delay: -0.144s;
+}
+
+.custom-spinner div:nth-child(4):after {
+  top: 63px;
+  left: 40px;
+}
+
+@keyframes custom-spinner {
+  0%,
+  20%,
+  80%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+}

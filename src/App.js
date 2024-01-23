@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CharacterFilter from './components/CharacterFilter';
 import Character from './components/Characters';
+import Footer from './components/Footer';
 import './App.css';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <main>
         <Character filter={filter} />
       </main>
+      <Footer />
     </div>
   );
 }
