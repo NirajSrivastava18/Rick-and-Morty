@@ -94,21 +94,50 @@ const CharacterCard = ({ character }) => {
 
 const Characters = ({ filter }) => {
   const [characters, setCharacters] = useState([]);
+  const [error, setError] = useState(null);
 
   const fetchData = useCallback((attempt = 1) => {
-    axios.get('https://rickandmortyapi.com/api/character/').then((response) => {
-      console.log('fetching data successful with attempt ', attempt);
-      setCharacters(response.data.results);
-    });
+    axios
+      .get('https://rickandmortyapi.com/api/character/')
+      .then((response) => {
+        console.log('fetching data successful with attempt ', attempt);
+        setCharacters(response.data.results);
+      })
+      .catch((error) => {
+        if (axios.isCancel(error)) {
+          console.log('Request canceled', error.message);
+        } else if (error.code === 'ECONNABORTED') {
+          console.log('server took too long to respond');
+          setError('server took too long to respond');
+        } else if (attempt <= 3) {
+          console.log('retrying', attempt);
+          setTimeout(() => fetchData(attempt + 1), 1000); // Retry after 1 second
+        } else {
+          console.error('Error fetching characters:', error);
+          setError('Unable to fetch characters after 3 attempts.');
+        }
+      });
   }, []);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
+  if (error) {
+    return (
+      <div>
+        <div className="error-message">{error}</div>
+      </div>
+    );
+  }
+
   const filteredCharacters = characters.filter((character) =>
     character.name.toLowerCase().includes(filter.toLowerCase())
   );
+
+  if (filteredCharacters.length === 0) {
+    return <div className="error-message">No characters found</div>;
+  }
 
   return (
     <div className="characters-grid">
