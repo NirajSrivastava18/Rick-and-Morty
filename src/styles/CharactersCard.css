@@ -31,6 +31,10 @@
   transform: rotateY(180deg);
 }
 
+.flipped .card {
+  transform: rotateY(180deg);
+}
+
 .characters-grid {
   display: flex;
   flex-wrap: wrap;
